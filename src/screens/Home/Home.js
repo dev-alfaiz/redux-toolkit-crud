@@ -8,6 +8,12 @@ export const Home = () => {
       <Link className="btn btn-dark" to={"/posts"}>
         All Posts
       </Link>
+      <Link className="btn btn-dark mx-4" to={"/post"}>
+        Post By ID
+      </Link>
+      <Link className="btn btn-dark" to={"/createpost"}>
+        Create Post
+      </Link>
     </div>
   );
 };

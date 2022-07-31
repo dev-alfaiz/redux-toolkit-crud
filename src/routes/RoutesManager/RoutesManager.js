@@ -2,7 +2,7 @@ import * as React from "react";
 import { Routes, Route } from "react-router-dom";
 
 import { Home } from "../../screens";
-import { Posts } from "../../components";
+import { Posts, PostById, CreatePost } from "../../components";
 
 const ROUTES_LIST = [
   {
@@ -14,6 +14,16 @@ const ROUTES_LIST = [
     routeName: "HomePage",
     path: "/home",
     element: <Home />,
+  },
+  {
+    routeName: "PostByIdPage",
+    path: "/post",
+    element: <PostById />,
+  },
+  {
+    routeName: "CreatePostPage",
+    path: "/createpost",
+    element: <CreatePost />,
   },
   {
     routeName: "PostsPage",

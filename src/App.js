@@ -4,7 +4,7 @@ import { RoutesManager } from "./routes";
 
 const App = () => {
   return (
-    <div className="container">
+    <div className="app">
       <RoutesManager />
     </div>
   );
