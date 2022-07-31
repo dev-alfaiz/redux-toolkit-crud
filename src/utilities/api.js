@@ -1,0 +1,16 @@
+import axios from "axios";
+
+const BASE_URL = "https://jsonplaceholder.typicode.com";
+
+export const AXIOS_INSTANCE = axios.create({
+  baseURL: BASE_URL,
+});
+
+export const getAllPost = async () => {
+  try {
+    const response = await AXIOS_INSTANCE.get(`/posts`);
+    return response;
+  } catch (error) {
+    return error.message;
+  }
+};
