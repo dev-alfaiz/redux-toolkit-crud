@@ -4,7 +4,7 @@ import { getAllPost } from "../../utilities";
 const initialState = {
   isFetching: false,
   isLoading: false,
-  //   postsList: [],
+  postsList: [],
 };
 
 export const fetchAllPosts = createAsyncThunk(
