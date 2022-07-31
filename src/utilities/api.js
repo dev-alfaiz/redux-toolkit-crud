@@ -14,3 +14,13 @@ export const getAllPost = async () => {
     return error.message;
   }
 };
+
+export const getPost = async (id) => {
+  try {
+    const headers = {};
+    const response = await AXIOS_INSTANCE.get(`/posts/${id}`);
+    return response;
+  } catch (error) {
+    return error.message;
+  }
+};
