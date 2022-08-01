@@ -47,7 +47,11 @@ export const fetchSelectPosts = createAsyncThunk(
 const postsSlice = createSlice({
   name: "posts",
   initialState,
-  reducers: {},
+  reducers: {
+    clearSelectedPost: (state) => {
+      state.selectedPost = [];
+    },
+  },
   extraReducers: {
     // fetchAllPosts AsyncThunk
     [fetchAllPosts.pending]: (state) => {
@@ -92,5 +96,7 @@ const postsSlice = createSlice({
     },
   },
 });
+
+export const { clearSelectedPost } = postsSlice.actions;
 
 export default postsSlice.reducer;

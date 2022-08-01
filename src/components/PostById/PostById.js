@@ -1,7 +1,10 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { fetchSelectPosts } from "../../app/slices/postsSlice";
+import {
+  fetchSelectPosts,
+  clearSelectedPost,
+} from "../../app/slices/postsSlice";
 import { Card } from "../Card";
 import { Spinner } from "../Spinner";
 
@@ -19,6 +22,12 @@ const PostById = () => {
       alert("Id must be greater than 0");
     }
   };
+
+  React.useEffect(() => {
+    return () => {
+      dispatch(clearSelectedPost());
+    };
+  }, []);
 
   return isLoading ? (
     <Spinner />
