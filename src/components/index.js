@@ -2,3 +2,4 @@ export * from "./Posts";
 export * from "./PostById";
 export * from "./CreatePost";
 export * from "./Card";
+export * from "./Spinner";

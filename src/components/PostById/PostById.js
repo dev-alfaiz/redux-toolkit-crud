@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { fetchSelectPosts } from "../../app/slices/postsSlice";
 import { Card } from "../Card";
+import { Spinner } from "../Spinner";
 
 const PostById = () => {
   const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.posts.isLoading);
   const selectedPost = useSelector((state) => state.posts.selectedPost);
   const [term, setTerm] = React.useState(0);
   const handleSubmit = (event) => {
@@ -18,7 +20,9 @@ const PostById = () => {
     }
   };
 
-  return (
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <div className="create-post">
       <div className="container row d-flex align-items-center justify-content-center">
         <div className="col-md-8">

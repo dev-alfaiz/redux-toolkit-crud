@@ -3,16 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { fetchAllPosts } from "../../app/slices/postsSlice";
 import { Card } from "../Card";
+import { Spinner } from "../Spinner";
 
 const Posts = () => {
   const dispatch = useDispatch(0);
+  const isLoading = useSelector((state) => state.posts.isLoading);
   const posts = useSelector((state) => state.posts.postsList);
 
   React.useEffect(() => {
     dispatch(fetchAllPosts());
   }, []);
 
-  return (
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <div className="posts">
       <div className="container">
         <h1 className="text-center">All Posts</h1>
