@@ -1,7 +1,14 @@
 import * as React from "react";
+import { useDispatch } from "react-redux";
+
+import { deleteSelectPost } from "../../app/slices/postsSlice";
 
 export const Card = (props) => {
   const { userId, id, title, body } = props;
+  const dispatch = useDispatch();
+  const handleDelete = () => {
+    dispatch(deleteSelectPost(id));
+  };
   return (
     <div
       className="card"
@@ -9,7 +16,7 @@ export const Card = (props) => {
     >
       <div className="card-body">
         <small className="text-muted">
-          <strong>{id ? `Id: ${id}` : "Unknown"}</strong>
+          <strong>{id}</strong>
         </small>
         <h5 className="card-title">
           <b>Title: </b>
@@ -21,7 +28,7 @@ export const Card = (props) => {
         </p>
         <p className="card-text">
           <small className="text-muted">
-            By <strong>{userId ? `User: ${userId}` : "Unknown"}</strong>
+            By <strong>{userId}</strong>
           </small>
         </p>
         <div
@@ -29,7 +36,9 @@ export const Card = (props) => {
           style={{ position: "absolute", bottom: "0", right: "0" }}
         >
           <button className="btn btn-dark mx-2">Edit</button>
-          <button className="btn btn-danger">Delete</button>
+          <button className="btn btn-danger" onClick={() => handleDelete(id)}>
+            Delete
+          </button>
         </div>
       </div>
     </div>

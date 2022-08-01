@@ -23,3 +23,12 @@ export const getPost = async (id) => {
     return error.message;
   }
 };
+
+export const deletePostById = async (id) => {
+  try {
+    const response = await AXIOS_INSTANCE.delete(`/posts/${id}`);
+    return response;
+  } catch (error) {
+    return error.message;
+  }
+};
