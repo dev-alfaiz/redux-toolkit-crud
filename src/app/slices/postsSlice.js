@@ -1,5 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getAllPost, getPost, deletePostById } from "../../utilities";
+import {
+  getAllPost,
+  getPost,
+  deletePostById,
+  createPostAPI,
+} from "../../utilities";
 
 const initialState = {
   isFetching: false,
@@ -49,6 +54,26 @@ export const deleteSelectPost = createAsyncThunk(
   async (id, { fulfillWithValue, rejectWithValue }) => {
     try {
       const response = await deletePostById(id);
+      if (response.status === 200 || response.status === 201) {
+        window.location.reload();
+        window.alert("Post Deleted!");
+        return fulfillWithValue(response.data);
+      } else if (response.status === 404) {
+        return rejectWithValue(response.statusText);
+      } else {
+        return rejectWithValue(`Error while fetching.\n Reason: ${response}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const createPost = createAsyncThunk(
+  "posts/createPost",
+  async (data, { fulfillWithValue, rejectWithValue }) => {
+    try {
+      const response = await createPostAPI(data);
       if (response.status === 200 || response.status === 201) {
         return fulfillWithValue(response.data);
       } else if (response.status === 404) {
@@ -126,6 +151,26 @@ const postsSlice = createSlice({
       };
     },
     [deleteSelectPost.rejected]: (state, { payload }) => {
+      return {
+        ...state,
+        isFetching: false,
+        isLoading: false,
+      };
+    },
+
+    // createPost AsyncThunk
+    [createPost.pending]: (state) => {
+      return { ...state, isFetching: true, isLoading: true };
+    },
+    [createPost.fulfilled]: (state, { payload }) => {
+      return {
+        ...state,
+        isFetching: false,
+        isLoading: false,
+        postsList: [...state.postsList, payload],
+      };
+    },
+    [createPost.rejected]: (state, { payload }) => {
       return {
         ...state,
         isFetching: false,

@@ -28,7 +28,7 @@ export const Card = (props) => {
         </p>
         <p className="card-text">
           <small className="text-muted">
-            By <strong>{userId}</strong>
+            By <strong>User {userId}</strong>
           </small>
         </p>
         <div

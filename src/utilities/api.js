@@ -32,3 +32,16 @@ export const deletePostById = async (id) => {
     return error.message;
   }
 };
+
+export const createPostAPI = async (data) => {
+  try {
+    const headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    };
+    const response = await AXIOS_INSTANCE.post(`/posts`, data, { headers });
+    return response;
+  } catch (error) {
+    return error.message;
+  }
+};
