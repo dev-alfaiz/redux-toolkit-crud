@@ -24,6 +24,7 @@ const CreatePost = () => {
       return alert("Provide Valid Information!");
     } else {
       dispatch(createPost(createPostData));
+      setCreatePostData(defaultState);
       navigate("/posts");
     }
   };

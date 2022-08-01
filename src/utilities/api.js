@@ -45,3 +45,13 @@ export const createPostAPI = async (data) => {
     return error.message;
   }
 };
+
+export const updatePostAPI = async (updatableData) => {
+  try {
+    const { id, title, body } = updatableData;
+    const response = await AXIOS_INSTANCE.put(`/posts/${id}`, { title, body });
+    return response;
+  } catch (error) {
+    return error.message;
+  }
+};

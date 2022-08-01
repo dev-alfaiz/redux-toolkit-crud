@@ -4,6 +4,7 @@ import {
   getPost,
   deletePostById,
   createPostAPI,
+  updatePostAPI,
 } from "../../utilities";
 
 const initialState = {
@@ -11,6 +12,8 @@ const initialState = {
   isLoading: false,
   postsList: [],
   selectedPost: [],
+  body: "",
+  edit: false,
 };
 
 export const fetchAllPosts = createAsyncThunk(
@@ -87,12 +90,35 @@ export const createPost = createAsyncThunk(
   }
 );
 
+export const updatePost = createAsyncThunk(
+  "posts/updatePost",
+  async (data, { fulfillWithValue, rejectWithValue }) => {
+    try {
+      const response = await updatePostAPI(data);
+      if (response.status === 200 || response.status === 201) {
+        return fulfillWithValue(response.data);
+      } else if (response.status === 404) {
+        return rejectWithValue(response.statusText);
+      } else {
+        return rejectWithValue(`Error while fetching.\n Reason: ${response}`);
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const postsSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
     clearSelectedPost: (state) => {
       state.selectedPost = [];
+    },
+    setEdit: (state, { payload }) => {
+      const { body, edit } = payload;
+      state.edit = edit;
+      state.body = body;
     },
   },
   extraReducers: {
@@ -177,9 +203,29 @@ const postsSlice = createSlice({
         isLoading: false,
       };
     },
+
+    // updatePost AsyncThunk
+    [updatePost.pending]: (state) => {
+      return { ...state, isFetching: true, isLoading: true };
+    },
+    [updatePost.fulfilled]: (state, { payload }) => {
+      return {
+        ...state,
+        isFetching: false,
+        isLoading: false,
+        postsList: [...state.postsList, payload],
+      };
+    },
+    [updatePost.rejected]: (state, { payload }) => {
+      return {
+        ...state,
+        isFetching: false,
+        isLoading: false,
+      };
+    },
   },
 });
 
-export const { clearSelectedPost } = postsSlice.actions;
+export const { clearSelectedPost, setEdit } = postsSlice.actions;
 
 export default postsSlice.reducer;

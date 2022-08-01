@@ -23,11 +23,11 @@ const PostById = () => {
     }
   };
 
-  React.useEffect(() => {
-    return () => {
-      dispatch(clearSelectedPost());
-    };
-  }, []);
+//   React.useEffect(() => {
+//     return () => {
+//       dispatch(clearSelectedPost());
+//     };
+//   }, []);
 
   return isLoading ? (
     <Spinner />
@@ -54,7 +54,7 @@ const PostById = () => {
           </form>
         </div>
       </div>
-      <div className="container my-4">
+      <div className="container my-4 text-center">
         {selectedPost
           ? selectedPost.map((post) => {
               return (
