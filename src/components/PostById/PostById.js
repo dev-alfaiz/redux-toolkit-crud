@@ -1,10 +1,12 @@
 import * as React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { fetchSelectPosts } from "../../app/slices/postsSlice";
+import { Card } from "../Card";
 
 const PostById = () => {
   const dispatch = useDispatch();
+  const selectedPost = useSelector((state) => state.posts.selectedPost);
   const [term, setTerm] = React.useState(0);
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -15,6 +17,7 @@ const PostById = () => {
       alert("Id must be greater than 0");
     }
   };
+
   return (
     <div className="create-post">
       <div className="container row d-flex align-items-center justify-content-center">
@@ -37,6 +40,21 @@ const PostById = () => {
             </button>
           </form>
         </div>
+      </div>
+      <div className="container my-4">
+        {selectedPost
+          ? selectedPost.map((post) => {
+              return (
+                <Card
+                  key={post.title + post.id}
+                  userId={post.userId}
+                  id={post.id}
+                  title={post.title}
+                  body={post.body}
+                />
+              );
+            })
+          : ""}
       </div>
     </div>
   );

@@ -17,7 +17,6 @@ export const getAllPost = async () => {
 
 export const getPost = async (id) => {
   try {
-    const headers = {};
     const response = await AXIOS_INSTANCE.get(`/posts/${id}`);
     return response;
   } catch (error) {

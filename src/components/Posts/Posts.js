@@ -1,20 +1,37 @@
 import * as React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { fetchAllPosts } from "../../app/slices/postsSlice";
+import { Card } from "../Card";
 
 const Posts = () => {
-    const dispatch = useDispatch(0);
+  const dispatch = useDispatch(0);
+  const posts = useSelector((state) => state.posts.postsList);
 
-    const handleClick = () => {
-      dispatch(fetchAllPosts());
-    };
+  React.useEffect(() => {
+    dispatch(fetchAllPosts());
+  }, []);
 
   return (
     <div className="posts">
-      <button onClick={() => handleClick()}>Fetch Posts</button>
-      <div className="container text-center">
-        <h1>All Posts</h1>
+      <div className="container">
+        <h1 className="text-center">All Posts</h1>
+        <div className="row">
+          {posts
+            ? posts.map((post) => {
+                return (
+                  <div className="col-md-4 my-2" key={post.title + post.id}>
+                    <Card
+                      userId={post.userId}
+                      id={post.id}
+                      title={post.title}
+                      body={post.body}
+                    />
+                  </div>
+                );
+              })
+            : ""}
+        </div>
       </div>
     </div>
   );

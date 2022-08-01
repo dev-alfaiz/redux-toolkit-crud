@@ -5,7 +5,7 @@ const initialState = {
   isFetching: false,
   isLoading: false,
   postsList: [],
-  selectedPost: null,
+  selectedPost: [],
 };
 
 export const fetchAllPosts = createAsyncThunk(
@@ -79,7 +79,7 @@ const postsSlice = createSlice({
         ...state,
         isFetching: false,
         isLoading: false,
-        selectedPost: payload,
+        selectedPost: [payload],
       };
     },
     [fetchSelectPosts.rejected]: (state, { payload }) => {
