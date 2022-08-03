@@ -213,7 +213,7 @@ const postsSlice = createSlice({
         ...state,
         isFetching: false,
         isLoading: false,
-        postsList: [...state.postsList, payload],
+        selectedPost: [...state.postsList, payload],
       };
     },
     [updatePost.rejected]: (state, { payload }) => {

@@ -1,7 +1,11 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { deleteSelectPost, setEdit } from "../../app/slices/postsSlice";
+import {
+  deleteSelectPost,
+  setEdit,
+  updatePost,
+} from "../../app/slices/postsSlice";
 
 export const Card = (props) => {
   const { userId, id, title, body } = props;
@@ -21,7 +25,15 @@ export const Card = (props) => {
     dispatch(deleteSelectPost(id));
   };
 
-  const handleSave = () => {};
+  const handleSave = ({ id, title, text }) => {
+    let payloadData = {
+      id: id,
+      title: title,
+      body: text,
+    };
+    dispatch(updatePost(payloadData));
+    dispatch(setEdit({ edit: false, body: "" }));
+  };
 
   const handleCancel = () => {
     setIsEditable(false);
@@ -69,7 +81,10 @@ export const Card = (props) => {
             className="d-flex align-items-end justify-content-end mb-2 mx-2"
             style={{ position: "absolute", bottom: "0", right: "0" }}
           >
-            <button className="btn btn-dark mx-2" onClick={() => handleSave()}>
+            <button
+              className="btn btn-dark mx-2"
+              onClick={() => handleSave({ id, title, text })}
+            >
               Save
             </button>
             <button className="btn btn-danger" onClick={() => handleCancel(id)}>

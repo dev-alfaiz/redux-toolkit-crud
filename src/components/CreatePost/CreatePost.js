@@ -1,8 +1,9 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 import { createPost } from "../../app/slices/postsSlice";
+import { Card } from "../Card";
 
 const defaultState = {
   title: "",
@@ -11,7 +12,8 @@ const defaultState = {
 
 const CreatePost = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const posts = useSelector((state) => state.posts.postsList);
+  // const navigate = useNavigate();
 
   const [createPostData, setCreatePostData] = React.useState(defaultState);
 
@@ -25,7 +27,7 @@ const CreatePost = () => {
     } else {
       dispatch(createPost(createPostData));
       setCreatePostData(defaultState);
-      navigate("/posts");
+      // navigate("/posts");
     }
   };
   return (
@@ -77,6 +79,19 @@ const CreatePost = () => {
           </div>
         </div>
       </div>
+      {posts?.map((post) => {
+        return (
+          <div className="container" key={post.id}>
+            <p>New Created Post!</p>
+            <Card
+              userId={post.userId}
+              id={post.id}
+              title={post.title}
+              body={post.body}
+            />
+          </div>
+        );
+      })}
     </div>
   );
 };
